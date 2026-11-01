@@ -1,0 +1,66 @@
+<%- include('../partials/header') %>
+    <main class="container">
+        <section class="form-card">
+            <h2>Edit Data Alat</h2>
+            <p>Perbarui informasi alat laboratorium.</p>
+
+            <form action="/alat/edit/<%= alat.id %>" method="POST">
+                <div class="form-group">
+                    <label for="kode_alat">Kode Alat</label>
+                    <input type="text" id="kode_alat" name="kode_alat"
+                        value="<%= alat.kode_alat %>" maxlength="20" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="nama_alat">Nama Alat</label>
+                    <input type="text" id="nama_alat" name="nama_alat"
+                        value="<%= alat.nama_alat %>" maxlength="100" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="kategori">Kategori</label>
+                    <input type="text" id="kategori" name="kategori"
+                        value="<%= alat.kategori %>" maxlength="50" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="deskripsi">Deskripsi</label>
+                    <textarea id="deskripsi" name="deskripsi" rows="4"><%= alat.deskripsi || '' %></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="jumlah">Jumlah</label>
+                    <input type="number" id="jumlah" name="jumlah"
+                        value="<%= alat.jumlah %>" min="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="kondisi">Kondisi</label>
+                    <select id="kondisi" name="kondisi" required>
+                        <option value="Baik" <%= alat.kondisi === 'Baik' ? 'selected' : '' %>>Baik</option>
+                        <option value="Rusak Ringan" <%= alat.kondisi === 'Rusak Ringan' ? 'selected' : '' %>>Rusak Ringan</option>
+                        <option value="Rusak Berat" <%= alat.kondisi === 'Rusak Berat' ? 'selected' : '' %>>Rusak Berat</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tanggal_pengadaan">Tanggal Pengadaan</label>
+                    <input type="date" id="tanggal_pengadaan"
+                        name="tanggal_pengadaan"
+                        value="<%= new Date(alat.tanggal_pengadaan).toISOString().slice(0, 10) %>"
+                        required>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        Simpan Perubahan
+                    </button>
+
+                    <a href="/alat" class="btn btn-secondary">
+                        Kembali
+                    </a>
+                </div>
+            </form>
+        </section>
+    </main>
+<%- include('../partials/footer') %>

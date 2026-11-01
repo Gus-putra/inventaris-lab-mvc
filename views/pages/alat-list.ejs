@@ -1,0 +1,69 @@
+<%- include('../partials/header') %>
+    <main class="container">
+        <section class="page-heading">
+            <div>
+                <h2>Daftar Alat Laboratorium</h2>
+                <p>Kelola data inventaris alat laboratorium.</p>
+            </div>
+            <a href="/alat/tambah" class="btn btn-primary">
+                + Tambah Alat
+            </a>
+        </section>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Kode Alat</th>
+                        <th>Nama Alat</th>
+                        <th>Kategori</th>
+                        <th>Jumlah</th>
+                        <th>Kondisi</th>
+                        <th>Tanggal Pengadaan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (alatList.length === 0) { %>
+                        <tr>
+                            <td colspan="8" class="empty">
+                                Belum ada data alat.
+                            </td>
+                        </tr>
+                    <% } else { %>
+                        <% alatList.forEach((alat, index) => { %>
+                            <tr>
+                                <td><%= index + 1 %></td>
+                                <td><%= alat.kode_alat %></td>
+                                <td><%= alat.nama_alat %></td>
+                                <td><%= alat.kategori %></td>
+                                <td><%= alat.jumlah %></td>
+                                <td>
+                                    <span class="status">
+                                        <%= alat.kondisi %>
+                                    </span>
+                                </td>
+                                <td>
+                                    <%= new Date(alat.tanggal_pengadaan).toLocaleDateString('id-ID') %>
+                                </td>
+                                <td class="actions">
+                                    <a href="/alat/edit/<%= alat.id %>" class="btn btn-edit">
+                                        Edit
+                                    </a>
+
+                                    <form action="/alat/hapus/<%= alat.id %>" method="POST"
+                                        onsubmit="return confirm('Yakin ingin menghapus data alat ini?')">
+                                        <button type="submit" class="btn btn-delete">
+                                            Hapus
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </main>
+<%- include('../partials/footer') %>
